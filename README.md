@@ -1,7 +1,7 @@
 # Federated Learning for MNIST Digit Classification
 
 Author: Sevendi Eldrige Rifki Poluan  
-Date: June 2026
+Date: May 2023
 
 ## Overview
 
