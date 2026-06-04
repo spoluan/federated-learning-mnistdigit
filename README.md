@@ -1,15 +1,87 @@
-**Project Descriptions**
+# Federated Learning for MNIST Digit Classification
 
-![alt](Image/1_HaH611vAy2eB1e42vz3X4g.webp)
+Author: Sevendi Eldrige Rifki Poluan  
+Date: June 2026
 
-Federated Learning is a decentralized approach to training machine learning models using data from multiple sources while preserving privacy. In traditional machine learning, data is sent to a central server for training, but in Federated Learning, the training happens on the individual devices or clients themselves.
+## Overview
 
-For example, let's consider the task of classifying handwritten digits using the popular MNIST dataset. Instead of collecting all the data and training the model on a central server, we can distribute the training process to multiple devices or clients, each having a subset of the data. In this case, we assume there are 7 clients.
+This project is a simple federated learning pipeline for handwritten digit classification using the MNIST dataset. Instead of collecting all data on a central server, training is distributed across multiple simulated clients. Each client trains locally and only shares model updates with the server.
 
-The Federated Learning process involves multiple rounds of communication between the central server and the clients. In each round, the clients locally train the model using their own data. They compute the gradients based on their data and send only the model updates (gradients) to the central server. The server aggregates these updates from all clients to create a global model. The updated global model is then sent back to the clients, and the process repeats for a specified number of rounds, such as 100 rounds in our case.
+This setup illustrates the key idea of federated learning: collaborative model training while keeping raw data on local nodes.
 
-By training the model locally on the clients and exchanging only the model updates, Federated Learning ensures that the raw data remains on the client devices, preserving privacy. It also reduces the need for transmitting large amounts of data over the network, making it more efficient and scalable.
+![Federated Learning Concept](Image/1_HaH611vAy2eB1e42vz3X4g.webp)
 
-With this approach, each client contributes to the model training process while maintaining the confidentiality of their data. As a result, the final global model represents the collective knowledge from all clients while respecting data privacy.
+## Project Setup
+
+- Dataset: MNIST (28x28 grayscale digit images)
+- Number of clients: 7 (simulated)
+- Communication rounds: 100
+- Frameworks: TensorFlow, NumPy, Pandas, scikit-learn, Matplotlib
+
+## Federated Learning Workflow
+
+1. Load MNIST training and test sets.
+2. Split training data across 7 clients.
+3. Build one global model and one local model per client.
+4. For each round:
+	 - Copy global weights to each client model.
+	 - Train each client model on local data.
+	 - Aggregate updates and apply them to the global model.
+5. Evaluate the global model and save the best weights.
+
+## Notebook Visualizations
+
+### Sample MNIST Images
+
+![Sample MNIST Images](Image/notebook_output_01_cell10.png)
+
+### Label Distribution Across Classes
+
+![Label Distribution](Image/notebook_output_02_cell12.png)
+
+### Confusion Matrix of the Global Model
+
+![Confusion Matrix](Image/notebook_output_03_cell34.png)
+
+## Evaluation Outputs
+
+After training, we compute:
+
+- Accuracy
+- Precision (macro)
+- Recall (macro)
+- F1-score (macro)
+- Confusion matrix
+
+These metrics are generated using the test split and scikit-learn utilities.
+
+## Saved Model
+
+Best global model weights are saved to:
+
+- `Saved model/global.model.weights.h5`
+
+## Repository Structure
+
+```
+federated_learning_MNIST_digit.ipynb
+README.md
+Image/
+Saved model/
+	global.model.weights.h5
+```
+
+## References
+
+1. MNIST Dataset (TensorFlow/Keras source used in this notebook): https://www.tensorflow.org/api_docs/python/tf/keras/datasets/mnist/load_data
+2. Alternative MNIST dataset page (OpenML): https://www.openml.org/search?type=data&status=active&id=554
+3. TensorFlow Documentation. https://www.tensorflow.org/
+4. Keras API Documentation. https://keras.io/api/
+5. McMahan, B., Moore, E., Ramage, D., Hampson, S., and y Arcas, B. A. (2017). Communication-Efficient Learning of Deep Networks from Decentralized Data. Proceedings of AISTATS. https://arxiv.org/abs/1602.05629
+6. scikit-learn Metrics Documentation. https://scikit-learn.org/stable/modules/model_evaluation.html
+
+## Notes
+
+This is an educational implementation intended to explain the federated learning concept. It can be extended with stronger aggregation logic, improved model architecture, and more realistic non-IID client data partitioning.
 
 
